@@ -1,0 +1,16 @@
+server:
+  port: 8088
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+     defaultZone: http://127.0.0.1:${server.port}/eureka/
+    register-with-eureka: false
+    fetch-registry: false
+    preferIpAddress: true
+
+spring:
+  application:
+    name: yipai-eurka-server

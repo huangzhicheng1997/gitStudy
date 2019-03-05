@@ -1,0 +1,54 @@
+server:
+  port: 8181
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.232.128:8088/eureka/
+spring:
+  application:
+    name: service-web
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8081"
+  datasource:
+    username: root
+    password: 15357886708
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yipai?useUnicode=true&characterEncoding=utf8
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: localhost
+    port: 6379
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100Mb
+      max-request-size: 100Mb
+  rabbitmq:
+    host: 47.112.36.195
+    port: 5672
+    username: user_admin
+    password: passwd_admin
+    publisher-confirms: true
+  data:
+    elasticsearch:
+      cluster-nodes: 47.112.36.195:9300
+      cluster-name: search
+  mail:
+    host: smtp.qq.com
+    username: 1220820912@qq.com
+    password: phodpqrurvphiddb
+    port: 587
+
+logging:
+  level:
+    com.hzc.serviceuser.**: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+mybatis:
+  mapper-locations: classpath:mybatis/*.xml

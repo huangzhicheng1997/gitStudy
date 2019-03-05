@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzc.serviceweb.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.hzc.serviceweb.entity.Goods">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="good_price" jdbcType="VARCHAR" property="goodPrice" />
+    <result column="good_describe" jdbcType="VARCHAR" property="goodDescribe" />
+    <result column="img_src" jdbcType="VARCHAR" property="imgSrc" />
+    <result column="good_name" jdbcType="VARCHAR" property="goodName" />
+    <result column="auction_price" jdbcType="VARCHAR" property="auctionPrice" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="detail_img1" jdbcType="VARCHAR" property="detailImg1" />
+    <result column="detail_img2" jdbcType="VARCHAR" property="detailImg2" />
+    <result column="detail_img3" jdbcType="VARCHAR" property="detailImg3" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="limited_time" jdbcType="VARCHAR" property="limitedTime" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="search_status" jdbcType="VARCHAR" property="searchStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, good_price, good_describe, img_src, good_name, auction_price, status, detail_img1, 
+    detail_img2, detail_img3, create_time, limited_time, user_id, search_status
+  </sql>
+  <select id="selectByExample" parameterType="com.hzc.serviceweb.entity.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from goods
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hzc.serviceweb.entity.GoodsExample">
+    delete from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hzc.serviceweb.entity.Goods">
+    insert into goods (id, good_price, good_describe, 
+      img_src, good_name, auction_price, 
+      status, detail_img1, detail_img2, 
+      detail_img3, create_time, limited_time, 
+      user_id, search_status)
+    values (#{id,jdbcType=VARCHAR}, #{goodPrice,jdbcType=VARCHAR}, #{goodDescribe,jdbcType=VARCHAR}, 
+      #{imgSrc,jdbcType=VARCHAR}, #{goodName,jdbcType=VARCHAR}, #{auctionPrice,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{detailImg1,jdbcType=VARCHAR}, #{detailImg2,jdbcType=VARCHAR}, 
+      #{detailImg3,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{limitedTime,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{searchStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzc.serviceweb.entity.Goods">
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodPrice != null">
+        good_price,
+      </if>
+      <if test="goodDescribe != null">
+        good_describe,
+      </if>
+      <if test="imgSrc != null">
+        img_src,
+      </if>
+      <if test="goodName != null">
+        good_name,
+      </if>
+      <if test="auctionPrice != null">
+        auction_price,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="detailImg1 != null">
+        detail_img1,
+      </if>
+      <if test="detailImg2 != null">
+        detail_img2,
+      </if>
+      <if test="detailImg3 != null">
+        detail_img3,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="limitedTime != null">
+        limited_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="searchStatus != null">
+        search_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodPrice != null">
+        #{goodPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodDescribe != null">
+        #{goodDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSrc != null">
+        #{imgSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodName != null">
+        #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionPrice != null">
+        #{auctionPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="detailImg1 != null">
+        #{detailImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="detailImg2 != null">
+        #{detailImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="detailImg3 != null">
+        #{detailImg3,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="limitedTime != null">
+        #{limitedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="searchStatus != null">
+        #{searchStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hzc.serviceweb.entity.GoodsExample" resultType="java.lang.Long">
+    select count(*) from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodPrice != null">
+        good_price = #{record.goodPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodDescribe != null">
+        good_describe = #{record.goodDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgSrc != null">
+        img_src = #{record.imgSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodName != null">
+        good_name = #{record.goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auctionPrice != null">
+        auction_price = #{record.auctionPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailImg1 != null">
+        detail_img1 = #{record.detailImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailImg2 != null">
+        detail_img2 = #{record.detailImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailImg3 != null">
+        detail_img3 = #{record.detailImg3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limitedTime != null">
+        limited_time = #{record.limitedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.searchStatus != null">
+        search_status = #{record.searchStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods
+    set id = #{record.id,jdbcType=VARCHAR},
+      good_price = #{record.goodPrice,jdbcType=VARCHAR},
+      good_describe = #{record.goodDescribe,jdbcType=VARCHAR},
+      img_src = #{record.imgSrc,jdbcType=VARCHAR},
+      good_name = #{record.goodName,jdbcType=VARCHAR},
+      auction_price = #{record.auctionPrice,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      detail_img1 = #{record.detailImg1,jdbcType=VARCHAR},
+      detail_img2 = #{record.detailImg2,jdbcType=VARCHAR},
+      detail_img3 = #{record.detailImg3,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=VARCHAR},
+      limited_time = #{record.limitedTime,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      search_status = #{record.searchStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzc.serviceweb.entity.Goods">
+    update goods
+    <set>
+      <if test="goodPrice != null">
+        good_price = #{goodPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodDescribe != null">
+        good_describe = #{goodDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSrc != null">
+        img_src = #{imgSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodName != null">
+        good_name = #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionPrice != null">
+        auction_price = #{auctionPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="detailImg1 != null">
+        detail_img1 = #{detailImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="detailImg2 != null">
+        detail_img2 = #{detailImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="detailImg3 != null">
+        detail_img3 = #{detailImg3,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="limitedTime != null">
+        limited_time = #{limitedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="searchStatus != null">
+        search_status = #{searchStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzc.serviceweb.entity.Goods">
+    update goods
+    set good_price = #{goodPrice,jdbcType=VARCHAR},
+      good_describe = #{goodDescribe,jdbcType=VARCHAR},
+      img_src = #{imgSrc,jdbcType=VARCHAR},
+      good_name = #{goodName,jdbcType=VARCHAR},
+      auction_price = #{auctionPrice,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      detail_img1 = #{detailImg1,jdbcType=VARCHAR},
+      detail_img2 = #{detailImg2,jdbcType=VARCHAR},
+      detail_img3 = #{detailImg3,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      limited_time = #{limitedTime,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      search_status = #{searchStatus,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

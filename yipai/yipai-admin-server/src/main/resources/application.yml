@@ -1,0 +1,20 @@
+server:
+  port: 8081
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+    fetch-registry: false
+    register-with-eureka: false
+spring:
+  application:
+    name: yipai-admin-server
+  mail:
+    host: smtp.qq.com
+  boot:
+    admin:
+      notify:
+        mail:
+          to: 1220820912@qq.com

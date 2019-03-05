@@ -1,0 +1,57 @@
+server:
+  port: 8180
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.232.128:8088/eureka/
+spring:
+  application:
+    name: service-user
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8081"
+  datasource:
+    username: root
+    password: 15357886708
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yipai?useUnicode=true&characterEncoding=utf8
+    #使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: 47.112.36.195
+    port: 6379
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100Mb
+      max-request-size: 100Mb
+  rabbitmq:
+    host: 47.112.36.195
+    port: 5672
+    username: user_admin
+    password: passwd_admin
+    virtual-host: /
+    publisher-confirms: true
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+#展示sql
+logging:
+  level:
+    com.hzc.serviceuser.**: DEBUG
+
+# 管理端配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+qiniu:
+  accesskey: mzcN1ZpzC9h4g1GZA0E_IXE_efeOkq_ZQ-LlYC7i
+  secretKey: Zy4lLLsKhlkmn7_xgeWAOvCi39j2K1tFWeso_thD
+  bucket: biyesheji
+  path: http://plgut6b1u.bkt.clouddn.com
