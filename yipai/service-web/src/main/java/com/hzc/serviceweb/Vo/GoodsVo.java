@@ -57,4 +57,23 @@ public class GoodsVo implements Serializable {
     private String userId;
 
     private static final long serialVersionUID = 1L;
+
+    @Override
+    public String toString() {
+        return "GoodsVo{" +
+                "id='" + id + '\'' +
+                ", goodPrice='" + goodPrice + '\'' +
+                ", goodDescribe='" + goodDescribe + '\'' +
+                ", imgSrc='" + imgSrc + '\'' +
+                ", goodName='" + goodName + '\'' +
+                ", auctionPrice='" + auctionPrice + '\'' +
+                ", status='" + status + '\'' +
+                ", detailImg1='" + detailImg1 + '\'' +
+                ", detailImg2='" + detailImg2 + '\'' +
+                ", detailImg3='" + detailImg3 + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", limitedTime='" + limitedTime + '\'' +
+                ", userId='" + userId + '\'' +
+                '}';
+    }
 }

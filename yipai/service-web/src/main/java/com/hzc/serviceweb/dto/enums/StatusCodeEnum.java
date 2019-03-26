@@ -1,6 +1,4 @@
-package com.hzc.serviceuser.dto.enums;
-
-import org.springframework.util.StringUtils;
+package com.hzc.serviceweb.dto.enums;
 
 import java.io.Serializable;
 

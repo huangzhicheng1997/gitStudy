@@ -131,7 +131,7 @@ public class UserController {
         JSONObject jsonObject = JSONObject.parseObject(us);
         User user = userHandler.getUserById(jsonObject.getString("userid"));
         InputStream inputStream = multipartFile.getInputStream();
-        String s = uploadImageHandler.upLoadQNImg(inputStream, null);
+        String s = uploadImageHandler.upLoadQNImg(multipartFile);
         user.setUserImg(s);
         redisUtil.set(token,user);
         Boolean flag = userHandler.updateUser(user);

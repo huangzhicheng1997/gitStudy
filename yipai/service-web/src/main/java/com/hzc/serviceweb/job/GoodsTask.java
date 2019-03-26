@@ -23,8 +23,10 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.List;
+/*
 @Slf4j
 @Component
+@Deprecated
 public class GoodsTask {
     @Autowired
     private JavaMailSender mailSender;
@@ -76,3 +78,4 @@ public class GoodsTask {
         }
     }
 }
+*/

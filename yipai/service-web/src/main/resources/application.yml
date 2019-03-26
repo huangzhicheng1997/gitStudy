@@ -3,7 +3,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.232.128:8088/eureka/
+      defaultZone: http://localhost:8088/eureka/
 spring:
   application:
     name: service-web
@@ -26,14 +26,14 @@ spring:
       max-file-size: 100Mb
       max-request-size: 100Mb
   rabbitmq:
-    host: 47.112.36.195
+    host: 106.15.178.88
     port: 5672
     username: user_admin
     password: passwd_admin
     publisher-confirms: true
   data:
     elasticsearch:
-      cluster-nodes: 47.112.36.195:9300
+      cluster-nodes: 106.15.178.88:9300
       cluster-name: search
   mail:
     host: smtp.qq.com

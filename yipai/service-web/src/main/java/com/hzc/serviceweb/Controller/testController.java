@@ -30,7 +30,7 @@ public class testController {
     private String from;
 @GetMapping("/get")
     public Iterable get(){
-    QueryBuilder queryBuilder= QueryBuilders.fuzzyQuery("goodDescribe","213");
+    QueryBuilder queryBuilder= QueryBuilders.matchAllQuery();
     Iterable<GoodsVo> all = goodsRepository.search(queryBuilder);
     return all;
 }

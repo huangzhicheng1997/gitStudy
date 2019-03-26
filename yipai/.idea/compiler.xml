@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="common" />
         <module name="service-user" />
         <module name="service-web" />
-        <module name="yipai" />
         <module name="yipai (2)" />
         <module name="yipai-admin-server" />
         <module name="yipai-common" />

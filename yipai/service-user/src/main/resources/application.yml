@@ -3,7 +3,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.232.128:8088/eureka/
+      defaultZone: http://127.0.0.1:8088/eureka/
 spring:
   application:
     name: service-user
@@ -19,7 +19,7 @@ spring:
     #使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
   redis:
-    host: 47.112.36.195
+    host: 106.15.178.88
     port: 6379
   servlet:
     multipart:
@@ -27,12 +27,16 @@ spring:
       max-file-size: 100Mb
       max-request-size: 100Mb
   rabbitmq:
-    host: 47.112.36.195
+    host: 106.15.178.88
     port: 5672
     username: user_admin
     password: passwd_admin
     virtual-host: /
     publisher-confirms: true
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
@@ -50,8 +54,10 @@ management:
       exposure:
         include: "*"
 
-qiniu:
-  accesskey: mzcN1ZpzC9h4g1GZA0E_IXE_efeOkq_ZQ-LlYC7i
-  secretKey: Zy4lLLsKhlkmn7_xgeWAOvCi39j2K1tFWeso_thD
-  bucket: biyesheji
-  path: http://plgut6b1u.bkt.clouddn.com
+aliyunOss:
+  accesskeyId: LTAIeQHdzxxgMPoq
+  accessKeySecret: ANAoBY5dS5UazepqCucSrVAC5eb4yd
+  bucketName: hzcbysj
+  endPoint: oss-cn-beijing.aliyuncs.com
+  callbackUrl: http://hzcbysj.oss-cn-beijing.aliyuncs.com/
+  

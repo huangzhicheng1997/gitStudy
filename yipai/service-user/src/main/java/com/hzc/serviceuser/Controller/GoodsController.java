@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -46,8 +47,7 @@ public class GoodsController {
      */
     @RequestMapping("/upload")
     public BaseRs uploadImages(@RequestParam("file")MultipartFile file) throws IOException {
-        InputStream inputStream = file.getInputStream();
-        String result = uploadImageHandler.upLoadQNImg(inputStream, null);
+        String result = uploadImageHandler.upLoadQNImg(file);
         return new BaseRs(StatusCodeEnum.SUCCESS,result);
     }
 

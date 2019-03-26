@@ -9,7 +9,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
-@Configuration
+/*@Configuration
 @EnableScheduling
 public class SchedulingConfig {
     @Bean
@@ -19,4 +19,4 @@ public class SchedulingConfig {
         taskScheduler.setThreadNamePrefix("Task-Thread-");
         return taskScheduler;
     }
-}
+}*/

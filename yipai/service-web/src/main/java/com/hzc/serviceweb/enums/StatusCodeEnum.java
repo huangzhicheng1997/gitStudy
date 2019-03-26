@@ -1,10 +1,8 @@
-package com.hzc.serviceuser.dto.enums;
-
-import org.springframework.util.StringUtils;
+package com.hzc.serviceweb.enums;
 
 import java.io.Serializable;
 
-public enum  StatusCodeEnum implements Serializable {
+public enum StatusCodeEnum implements Serializable {
     SUCCESS(200,"成功"),
     FAILD(-1,"失败"),
     /**
@@ -13,7 +11,7 @@ public enum  StatusCodeEnum implements Serializable {
     LOGIN_EXPIRE(1001, "登陆超时,请重新登陆");
     private int code;
     private  String msg;
-    StatusCodeEnum(int code,String msg){
+    StatusCodeEnum(int code, String msg){
         this.code=code;
         this.msg=msg;
     }
