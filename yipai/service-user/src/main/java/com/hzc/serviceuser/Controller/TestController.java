@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
 
@@ -27,9 +29,22 @@ public class TestController {
     private testHandler testHandler;
 
     @RequestMapping("/test")
-    public String test(@RequestParam("file") MultipartFile multipartFile) throws IOException {
-        String s = uploadImageHandler.upLoadQNImg(multipartFile);
-        return s;
+    public void test(HttpServletResponse response) throws IOException {
+        String cnName="asdsa";
+        cnName= new String(cnName.getBytes("gb2312"), "ISO8859-1");
+        response.setCharacterEncoding("utf-8");
+        //设置响应的内容类型
+        response.setContentType("text/plain");
+        //设置文件的名称和格式
+        response.addHeader("Content-Disposition","attachment;filename="
+                + cnName//设置名称格式，没有这个中文名称无法显示
+                + ".txt");
+        String a="xxxxxx";
+        ServletOutputStream outputStream = response.getOutputStream();
+        BufferedOutputStream buff=new BufferedOutputStream(outputStream);
+        buff.write(a.getBytes());
+        buff.flush();
+        buff.close();
     }
 
     @RequestMapping("/tt")
@@ -42,6 +57,9 @@ public class TestController {
         return userAndGoodsDto;
     }
 
-
+    @RequestMapping("/ts")
+    public String test(String name){
+        return new String(name);
+    }
 
 }

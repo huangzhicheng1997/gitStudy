@@ -1,6 +1,7 @@
 package com.hzc.serviceweb.Controller;
 
 import com.hzc.serviceweb.Dao.GoodsRepository;
+import com.hzc.serviceweb.Service.FeignClient;
 import com.hzc.serviceweb.Vo.GoodsVo;
 import com.hzc.serviceweb.entity.GoodsInfo;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -26,13 +27,14 @@ public class testController {
     private JavaMailSender mailSender;
     @Autowired
     GoodsRepository goodsRepository;
+    @Autowired
+    private FeignClient feignClient;
     @Value("$(spring.mail.username)")
     private String from;
 @GetMapping("/get")
-    public Iterable get(){
-    QueryBuilder queryBuilder= QueryBuilders.matchAllQuery();
-    Iterable<GoodsVo> all = goodsRepository.search(queryBuilder);
-    return all;
+    public String get(){
+    String hello_world = feignClient.ts("hello world");
+    return hello_world;
 }
 
     @GetMapping("/test")

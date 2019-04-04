@@ -43,8 +43,8 @@ public class GoodsHandler {
     @Transactional
     public Boolean addGoods(Goods goods){
         int insert = goodsMapper.insert(goods);
-        rabbitMqProducerService.sendGoods(goods);
         if(insert>0){
+            rabbitMqProducerService.sendGoods(goods);
             return true;
         }else{
             return false;
@@ -56,6 +56,19 @@ public class GoodsHandler {
     public Goods getGoodsById(String id){
         Goods goods = goodsMapper.selectByPrimaryKey(id);
         return goods;
+    }
+
+
+
+    public Boolean Deal(Goods goods){
+        GoodsExample example=new GoodsExample();
+        GoodsExample.Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(goods.getId());
+        int i = goodsMapper.updateByExampleSelective(goods, example);
+        if(i>0){
+            return true;
+        }
+        return false;
     }
 
 
