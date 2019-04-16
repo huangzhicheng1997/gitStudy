@@ -8,6 +8,7 @@
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="ctime" jdbcType="VARCHAR" property="ctime" />
     <result column="utime" jdbcType="VARCHAR" property="utime" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_id, auction_user_id, user_id, ctime, utime
+    id, goods_id, auction_user_id, user_id, ctime, utime, price
   </sql>
   <select id="selectByExample" parameterType="com.hzc.serviceuser.entity.TransactionDetailExample" resultMap="BaseResultMap">
     select
@@ -105,9 +106,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into transaction_detail (goods_id, auction_user_id, user_id, 
-      ctime, utime)
+      ctime, utime, price
+      )
     values (#{goodsId,jdbcType=VARCHAR}, #{auctionUserId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{ctime,jdbcType=VARCHAR}, #{utime,jdbcType=VARCHAR})
+      #{ctime,jdbcType=VARCHAR}, #{utime,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.hzc.serviceuser.entity.TransactionDetail">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -130,6 +133,9 @@
       <if test="utime != null">
         utime,
       </if>
+      <if test="price != null">
+        price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="goodsId != null">
@@ -146,6 +152,9 @@
       </if>
       <if test="utime != null">
         #{utime,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -176,6 +185,9 @@
       <if test="record.utime != null">
         utime = #{record.utime,jdbcType=VARCHAR},
       </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -188,7 +200,8 @@
       auction_user_id = #{record.auctionUserId,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=VARCHAR},
       ctime = #{record.ctime,jdbcType=VARCHAR},
-      utime = #{record.utime,jdbcType=VARCHAR}
+      utime = #{record.utime,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -211,6 +224,9 @@
       <if test="utime != null">
         utime = #{utime,jdbcType=VARCHAR},
       </if>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -220,7 +236,8 @@
       auction_user_id = #{auctionUserId,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       ctime = #{ctime,jdbcType=VARCHAR},
-      utime = #{utime,jdbcType=VARCHAR}
+      utime = #{utime,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.data.jpa.repository.Query;
+
 @Mapper
 public interface GoodsMapper {
     long countByExample(GoodsExample example);
@@ -29,4 +32,7 @@ public interface GoodsMapper {
     int updateByPrimaryKeySelective(Goods record);
 
     int updateByPrimaryKey(Goods record);
+
+    @Select(value = "Select * from goods where id=#{id}")
+    Goods getGoods(String id);
 }

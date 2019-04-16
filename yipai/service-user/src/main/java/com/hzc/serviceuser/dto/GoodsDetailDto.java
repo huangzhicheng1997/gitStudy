@@ -2,6 +2,7 @@ package com.hzc.serviceuser.dto;
 
 import com.hzc.serviceuser.entity.Goods;
 
+
 public class GoodsDetailDto extends Goods {
     /**
      * 当前用户是否以经竞拍过

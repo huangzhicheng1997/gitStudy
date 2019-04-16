@@ -7,6 +7,8 @@ import java.io.Serializable;
 public enum  StatusCodeEnum implements Serializable {
     SUCCESS(200,"成功"),
     FAILD(-1,"失败"),
+    NETERROR(500,"网络异常"),
+    PRICEERROR(201,"价格不合法"),
     /**
      * 登陆超时,请重新登陆
      */

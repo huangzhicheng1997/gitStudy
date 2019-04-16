@@ -10,6 +10,7 @@ import com.hzc.serviceuser.dto.GoodsDetailDto;
 import com.hzc.serviceuser.dto.enums.StatusCodeEnum;
 import com.hzc.serviceuser.dto.param.GoodsRq;
 import com.hzc.serviceuser.dto.response.BaseRs;
+import com.hzc.serviceuser.dto.response.pageRs;
 import com.hzc.serviceuser.dto.vo.GoodsVo;
 import com.hzc.serviceuser.entity.Goods;
 import com.hzc.serviceuser.entity.TransactionDetail;
@@ -80,11 +81,14 @@ public class GoodsController {
         goods.setUserId(userid);
         goods.setAuctionPrice(goodsRq.getGoodPrice());
         goods.setGoodPrice(goodsRq.getGoodPrice());
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-mm-dd hh:mm;ss");
+        SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         String data = dateFormat.format(new Date());
         goods.setCreateTime(data);
         //处理字符串
         String detailImage = goodsRq.getDetailImage();
+        if(StringUtils.isEmpty(detailImage)){
+            return new BaseRs(StatusCodeEnum.NETERROR);
+        }
         String[] detailImgs= detailImage.split(";");
         if(detailImgs.length==1){
             goods.setDetailImg1(detailImgs[0]);
@@ -142,7 +146,8 @@ public class GoodsController {
      * @return
      */
     @RequestMapping("/doAuction")
-    public BaseRs doAuction(String goodsId,HttpServletRequest request){
+    public BaseRs doAuction(String goodsId,HttpServletRequest request,String auctionPrice){
+
         BaseRs<Goods> baseRs = new BaseRs<>(StatusCodeEnum.FAILD);
         if(StringUtils.isEmpty(goodsId)){
             return baseRs;
@@ -159,7 +164,15 @@ public class GoodsController {
         transactionDetail.setGoodsId(goodsId);
         transactionDetail.setUserId(goods.getUserId());
         transactionDetail.setGoodsId(goods.getId());
-        Boolean flag = transactionDetailHandler.doAuction(transactionDetail);
+        transactionDetail.setPrice(auctionPrice);
+        Boolean flag=null;
+        synchronized(this){
+        Goods goodsById = goodsHandler.getGoodsById(goodsId);
+        if(Integer.valueOf(auctionPrice)<=Integer.valueOf(goodsById.getAuctionPrice())){
+            return new BaseRs(StatusCodeEnum.PRICEERROR);
+        }
+        flag = transactionDetailHandler.doAuction(transactionDetail);
+        }
         if(!flag){
           return baseRs;
         }
@@ -183,6 +196,31 @@ public class GoodsController {
             baseRs = new BaseRs<>(StatusCodeEnum.FAILD);
         }
         return baseRs;
+    }
+
+    @RequestMapping("/getMyGoods")
+    public pageRs getMyGoods(HttpServletRequest request){
+        String token = request.getHeader("token");
+        String json = redisUtil.get(token);
+        JSONObject user = JSONObject.parseObject(json);
+        String userid = user.getString("userid");
+        List<Goods> ls = goodsHandler.getGoodsByUserId(userid);
+        if(ls.isEmpty()){
+            return new pageRs(0,"成功",Collections.emptyList(),0);
+        }else {
+            return new pageRs(0,"成功",ls,ls.size());
+        }
+
+    }
+
+    @RequestMapping("/deleteGoods")
+    public BaseRs deleteGoods(String id){
+        Boolean flag = goodsHandler.deleteGoods(id);
+        if(flag==true){
+            return new BaseRs(StatusCodeEnum.SUCCESS);
+        }else {
+            return new BaseRs(StatusCodeEnum.FAILD);
+        }
     }
 
 }

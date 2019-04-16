@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ESService {
     public List<GoodsVo> getGoods(String condition);
+    public Iterable<GoodsVo> getAllGoods();
+    public Boolean deleteGoods(String id);
 }

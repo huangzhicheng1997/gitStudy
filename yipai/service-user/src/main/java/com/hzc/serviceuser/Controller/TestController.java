@@ -2,11 +2,20 @@ package com.hzc.serviceuser.Controller;
 
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.internal.org.bouncycastle.pqc.jcajce.provider.util.KeyUtil;
+import com.hzc.serviceuser.Handler.GoodsHandler;
+import com.hzc.serviceuser.Handler.TransactionDetailHandler;
 import com.hzc.serviceuser.Handler.UploadImageHandler;
 import com.hzc.serviceuser.Handler.testHandler;
 import com.hzc.serviceuser.dto.UserAndGoodsDto;
-import com.qiniu.common.QiniuException;
+import com.hzc.serviceuser.dto.enums.StatusCodeEnum;
+import com.hzc.serviceuser.dto.response.BaseRs;
+import com.hzc.serviceuser.dto.vo.TransactionDetailVo;
+import com.hzc.serviceuser.entity.Goods;
+import com.hzc.serviceuser.entity.TransactionDetail;
+
+import com.hzc.serviceuser.service.FeignClient;
 import com.sun.org.apache.xml.internal.security.keys.KeyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +28,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/home")
@@ -27,6 +37,13 @@ public class TestController {
     private UploadImageHandler uploadImageHandler;
     @Autowired
     private testHandler testHandler;
+    @Autowired
+    TransactionDetailHandler transactionDetailHandler;
+    @Autowired
+    private FeignClient feignClient;
+
+
+
 
     @RequestMapping("/test")
     public void test(HttpServletResponse response) throws IOException {
@@ -47,19 +64,21 @@ public class TestController {
         buff.close();
     }
 
-    @RequestMapping("/tt")
-    public UserAndGoodsDto tt(){
-
-        List list = testHandler.testJpa();
-        JSONArray array=new JSONArray(list);
-        UserAndGoodsDto userAndGoodsDto=new UserAndGoodsDto();
-        userAndGoodsDto.setContent(array);
-        return userAndGoodsDto;
+    @RequestMapping("/getEsALL")
+    public Map tt(){
+        Map allGoods = feignClient.getAllGoods();
+        return allGoods;
     }
 
     @RequestMapping("/ts")
-    public String test(String name){
-        return new String(name);
+    public  BaseRs<TransactionDetailVo> test(String id){
+        List<TransactionDetailVo> transaction = transactionDetailHandler.getTransaction(id);
+
+        return new BaseRs(StatusCodeEnum.SUCCESS,transaction);
     }
 
+    @RequestMapping("/deleteEs")
+    public Boolean deleteEsTest(String id){
+       return feignClient.deleteFromES(id);
+    }
 }

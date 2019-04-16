@@ -27,6 +27,11 @@ public class TransactionDetail implements Serializable {
 
     private String utime;
 
+    /**
+     * 竞拍价格
+     */
+    private String price;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -75,5 +80,13 @@ public class TransactionDetail implements Serializable {
 
     public void setUtime(String utime) {
         this.utime = utime;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

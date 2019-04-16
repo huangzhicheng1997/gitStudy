@@ -12,6 +12,7 @@ import org.elasticsearch.index.query.*;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -30,5 +31,18 @@ public class EsController {
     public List<GoodsVo> getGoods(String keyword){
         List<GoodsVo> goods = esService.getGoods(keyword);
         return goods;
+    }
+
+    @RequestMapping("/getAllGoods")
+    public Iterable<GoodsVo> getAllGoods(){
+        Iterable<GoodsVo> allGoods = esService.getAllGoods();
+
+        return allGoods;
+    }
+
+    @RequestMapping("/deleteGoods")
+    public Boolean deleteGoodsFromEs(String id){
+        Boolean flag = esService.deleteGoods(id);
+       return flag;
     }
 }

@@ -31,7 +31,7 @@ public class testController {
     private FeignClient feignClient;
     @Value("$(spring.mail.username)")
     private String from;
-@GetMapping("/get")
+    @GetMapping("/get")
     public String get(){
     String hello_world = feignClient.ts("hello world");
     return hello_world;
