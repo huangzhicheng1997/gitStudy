@@ -14,6 +14,8 @@ import com.hzc.serviceuser.dto.response.pageRs;
 import com.hzc.serviceuser.dto.vo.GoodsVo;
 import com.hzc.serviceuser.entity.Goods;
 import com.hzc.serviceuser.entity.TransactionDetail;
+import com.hzc.serviceuser.mapper.TransactionDetailMapper;
+import com.hzc.serviceuser.service.FeignClient;
 import com.hzc.serviceuser.utils.CopyObjUtil;
 import com.hzc.serviceuser.utils.RedisUtil;
 import org.apache.commons.lang.StringUtils;
@@ -45,6 +47,10 @@ public class GoodsController {
     private RedisUtil redisUtil;
     @Autowired
     private TransactionDetailHandler transactionDetailHandler;
+    @Autowired
+    private FeignClient feignClient;
+    @Autowired
+    private TransactionDetailMapper transactionDetailMapper;
 
     @RequestMapping("/getGoods")
     public GoodsVo getGoods(){
@@ -147,7 +153,6 @@ public class GoodsController {
      */
     @RequestMapping("/doAuction")
     public BaseRs doAuction(String goodsId,HttpServletRequest request,String auctionPrice){
-
         BaseRs<Goods> baseRs = new BaseRs<>(StatusCodeEnum.FAILD);
         if(StringUtils.isEmpty(goodsId)){
             return baseRs;
@@ -166,6 +171,7 @@ public class GoodsController {
         transactionDetail.setGoodsId(goods.getId());
         transactionDetail.setPrice(auctionPrice);
         Boolean flag=null;
+        //保证多线程下 数据库的就竞拍价格只会越来越高 低的价格不会覆盖高的价格
         synchronized(this){
         Goods goodsById = goodsHandler.getGoodsById(goodsId);
         if(Integer.valueOf(auctionPrice)<=Integer.valueOf(goodsById.getAuctionPrice())){
@@ -187,13 +193,17 @@ public class GoodsController {
      */
     @RequestMapping("/Deal")
     public BaseRs  Deal(String id) {
-        Goods goods = new Goods();
-        goods.setId(id);
-        goods.setStatus("3");
-        Boolean flag = goodsHandler.Deal(goods);
+        TransactionDetail maxDetail = transactionDetailMapper.getMaxDetail(id);
+        if(maxDetail==null){
+            return  new BaseRs<>(StatusCodeEnum.NOAUCTIONMAN);
+        }
+        Goods goodsById = goodsHandler.getGoodsById(id);
+        goodsById.setStatus("3");
+        Boolean flag = goodsHandler.Deal(goodsById);
         BaseRs<Goods> baseRs = new BaseRs<>(StatusCodeEnum.SUCCESS);
-        if (flag == true) {
-            baseRs = new BaseRs<>(StatusCodeEnum.FAILD);
+
+        if (flag == false) {
+            return  new BaseRs<>(StatusCodeEnum.FAILD);
         }
         return baseRs;
     }

@@ -12,8 +12,11 @@ import com.qiniu.util.Auth;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Encoder;
 
 import java.io.*;
+import java.util.Base64;
+import java.util.UUID;
 
 @Component
 public class UploadImageHandler {
@@ -27,17 +30,19 @@ public class UploadImageHandler {
     private String endPoint;
     @Value("${aliyunOss.callbackUrl}")
     private String callbackUrl;
-    public String upLoadQNImg(MultipartFile file) throws QiniuException {
-       OSSClient ossClient=new OSSClient(endPoint,accesskeyId,accessKeySecret);
+    public String upLoadQNImg(MultipartFile file)  {
+        String fileName=UUID.randomUUID()+".jpg";
+        String url=callbackUrl+fileName;
+        OSSClient ossClient=new OSSClient(endPoint,accesskeyId,accessKeySecret);
         InputStream inputStream = null;
         try {
             inputStream = file.getInputStream();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ossClient.putObject(bucketName,file.getOriginalFilename(),inputStream);
+        ossClient.putObject(bucketName,fileName,inputStream);
         ossClient.shutdown();
-        String url=callbackUrl+file.getOriginalFilename();
+
         return url;
     }
 

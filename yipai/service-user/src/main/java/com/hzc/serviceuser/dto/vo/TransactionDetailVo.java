@@ -12,6 +12,8 @@ public class TransactionDetailVo implements Serializable {
     private String ownerName;
     private String myName;
     private int status;
+    private int price;
+    private String myId;
     public Long getId() {
         return id;
     }
@@ -70,5 +72,21 @@ public class TransactionDetailVo implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getMyId() {
+        return myId;
+    }
+
+    public void setMyId(String myId) {
+        this.myId = myId;
     }
 }

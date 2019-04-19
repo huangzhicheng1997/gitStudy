@@ -31,6 +31,10 @@ public interface TransactionDetailMapper {
     int updateByPrimaryKeySelective(TransactionDetail record);
 
     int updateByPrimaryKey(TransactionDetail record);
-    @Select("SELECT a.id,a.goods_id as goodsId,b.good_name as goodsName,a.ctime,c.username as ownerName,b.`status` FROM transaction_detail a,goods b,`user` c WHERE a.goods_id=b.id AND a.user_id=c.userId And a.user_id=#{userid}")
+    @Select("SELECT a.id,a.price,a.goods_id as goodsId,b.good_name as goodsName,a.ctime,c.username as ownerName,b.`status`,d.username as myName,d.userId as myId " +
+            "FROM transaction_detail a,goods b,`user` c,`user` d " +
+            "WHERE a.goods_id=b.id AND a.user_id=c.userId AND a.auction_user_id=d.userId And d.userId=#{userid}")
     List<TransactionDetailVo> getTransactions(@Param(value = "userid") String userid);
+    @Select("SELECT b.id,b.goods_id as goodsId,b.auction_user_id as auctionUserId ,b.user_id as userId,b.ctime,b.utime,b.price FROM goods a,transaction_detail b WHERE a.auction_price=b.price AND b.goods_id=#{goodId}")
+    TransactionDetail getMaxDetail(@Param(value = "goodId") String goodId);
 }

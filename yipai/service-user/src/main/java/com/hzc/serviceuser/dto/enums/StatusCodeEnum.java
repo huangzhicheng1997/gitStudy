@@ -9,6 +9,7 @@ public enum  StatusCodeEnum implements Serializable {
     FAILD(-1,"失败"),
     NETERROR(500,"网络异常"),
     PRICEERROR(201,"价格不合法"),
+    NOAUCTIONMAN(202,"当前无竞拍人"),
     /**
      * 登陆超时,请重新登陆
      */
