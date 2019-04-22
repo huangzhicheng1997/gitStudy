@@ -11,12 +11,18 @@ import com.hzc.serviceuser.Handler.testHandler;
 import com.hzc.serviceuser.dto.UserAndGoodsDto;
 import com.hzc.serviceuser.dto.enums.StatusCodeEnum;
 import com.hzc.serviceuser.dto.response.BaseRs;
+import com.hzc.serviceuser.dto.vo.GoodsComentVo;
 import com.hzc.serviceuser.dto.vo.TransactionDetailVo;
 import com.hzc.serviceuser.entity.Goods;
 import com.hzc.serviceuser.entity.TransactionDetail;
 
+import com.hzc.serviceuser.mapper.GoodsMapper;
+import com.hzc.serviceuser.mapper.TransactionDetailMapper;
+import com.hzc.serviceuser.repositories.GoodsCommentRespository;
 import com.hzc.serviceuser.service.FeignClient;
+import com.hzc.serviceuser.utils.JpaUtils;
 import com.sun.org.apache.xml.internal.security.keys.KeyUtils;
+import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +33,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,8 +51,10 @@ public class TestController {
     TransactionDetailHandler transactionDetailHandler;
     @Autowired
     private FeignClient feignClient;
-
-
+    @Autowired
+    private GoodsCommentRespository goodsCommentRespository;
+   @Autowired
+   private TransactionDetailMapper mapper;
 
 
     @RequestMapping("/test")
@@ -71,14 +83,13 @@ public class TestController {
     }
 
     @RequestMapping("/ts")
-    public  BaseRs<TransactionDetailVo> test(String id){
-        List<TransactionDetailVo> transaction = transactionDetailHandler.getTransaction(id);
-
-        return new BaseRs(StatusCodeEnum.SUCCESS,transaction);
+    public  BaseRs<TransactionDetailVo> test(String id) throws IllegalAccessException {
+        return null;
     }
 
     @RequestMapping("/deleteEs")
     public Boolean deleteEsTest(String id){
        return feignClient.deleteFromES(id);
     }
+
 }

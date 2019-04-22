@@ -88,7 +88,7 @@ public class GoodsHandler {
 
     @Transactional
     public Boolean Deal(Goods goods) {
-        //商品表置为更新状态
+        //商品表置为成交状态
         GoodsExample example = new GoodsExample();
         GoodsExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(goods.getId());
