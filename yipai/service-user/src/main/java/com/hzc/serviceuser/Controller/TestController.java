@@ -18,7 +18,6 @@ import com.hzc.serviceuser.entity.TransactionDetail;
 
 import com.hzc.serviceuser.mapper.GoodsMapper;
 import com.hzc.serviceuser.mapper.TransactionDetailMapper;
-import com.hzc.serviceuser.repositories.GoodsCommentRespository;
 import com.hzc.serviceuser.service.FeignClient;
 import com.hzc.serviceuser.utils.JpaUtils;
 import com.sun.org.apache.xml.internal.security.keys.KeyUtils;
@@ -51,8 +50,6 @@ public class TestController {
     TransactionDetailHandler transactionDetailHandler;
     @Autowired
     private FeignClient feignClient;
-    @Autowired
-    private GoodsCommentRespository goodsCommentRespository;
    @Autowired
    private TransactionDetailMapper mapper;
 

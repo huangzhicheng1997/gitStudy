@@ -26,8 +26,6 @@ public class testController {
     @Autowired
     private JavaMailSender mailSender;
     @Autowired
-    GoodsRepository goodsRepository;
-    @Autowired
     private FeignClient feignClient;
     @Value("$(spring.mail.username)")
     private String from;

@@ -24,7 +24,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry interceptorRegistry){
         interceptorRegistry.addInterceptor(setIntercept())
-        .addPathPatterns("/pp").excludePathPatterns("/home/**").excludePathPatterns("/comment/**")
+        .addPathPatterns("/**").excludePathPatterns("/user/login").excludePathPatterns("/user/regist").excludePathPatterns("/goods/getGoods")
                ;
     }
     @Override

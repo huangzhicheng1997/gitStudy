@@ -13,7 +13,12 @@ public enum  StatusCodeEnum implements Serializable {
     /**
      * 登陆超时,请重新登陆
      */
-    LOGIN_EXPIRE(1001, "登陆超时,请重新登陆");
+    LOGIN_EXPIRE(1001, "登陆超时,请重新登陆"),
+    NULLCONTENT(203,"评论内容为空"),
+    NULLID(204,"id为空")
+
+    ;
+
     private int code;
     private  String msg;
     StatusCodeEnum(int code,String msg){

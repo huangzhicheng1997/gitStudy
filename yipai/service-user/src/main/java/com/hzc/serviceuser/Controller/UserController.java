@@ -13,6 +13,7 @@ import com.hzc.serviceuser.dto.param.UpdateUserRq;
 import com.hzc.serviceuser.dto.response.BaseRs;
 import com.hzc.serviceuser.dto.vo.UserLoginVo;
 import com.hzc.serviceuser.entity.User;
+import com.hzc.serviceuser.param.UserInfo;
 import com.hzc.serviceuser.utils.RedisUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,6 +117,7 @@ public class UserController {
     public void loginOut(HttpServletRequest request){
         String token = request.getHeader("token");
         redisUtil.delete(token);
+        UserInfo.remove();
     }
 
     /**
