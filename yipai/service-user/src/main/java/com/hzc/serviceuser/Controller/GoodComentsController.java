@@ -43,7 +43,7 @@ public class GoodComentsController {
             return new BaseRs(StatusCodeEnum.NULLID);
         }
         goodsComent.setCtime(Integer.valueOf(System.currentTimeMillis()/1000+""));
-        goodsComent.setUserId(UserInfo.getUgiser().getUserid());
+        goodsComent.setUserId(UserInfo.getUser().getUserid());
         int i = commentService.addComments(goodsComent);
         if(i==0){
             return new BaseRs(StatusCodeEnum.FAILD);
