@@ -2,7 +2,7 @@ package com.hzc.serviceuser.dto.vo;
 
 public class UserCommentVo {
     private String content;
-    private Integer ctime;
+    private String ctime;
     private String goodId;
     private String userId;
     private String username;
@@ -15,11 +15,11 @@ public class UserCommentVo {
         this.content = content;
     }
 
-    public Integer getCtime() {
+    public String getCtime() {
         return ctime;
     }
 
-    public void setCtime(Integer ctime) {
+    public void setCtime(String ctime) {
         this.ctime = ctime;
     }
 

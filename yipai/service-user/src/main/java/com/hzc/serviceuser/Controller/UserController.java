@@ -114,10 +114,11 @@ public class UserController {
      * @param request
      */
     @RequestMapping("/loginOut")
-    public void loginOut(HttpServletRequest request){
+    public String loginOut(HttpServletRequest request){
         String token = request.getHeader("token");
         redisUtil.delete(token);
         UserInfo.remove();
+        return "";
     }
 
     /**

@@ -1,0 +1,35 @@
+server:
+  port: 8082
+
+service:
+  user-url: http://127.0.0.1:8180
+  web-url: http://106.13.147.166:8181
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://106.13.147.166:8088/eureka/
+
+spring:
+  application:
+    name: service-gateway
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 100Mb
+      max-file-size: 10Mb
+  cloud:
+    gateway:
+      routes:
+      - id: api-user
+        uri: ${service.user-url}
+        predicates:
+        - Path=/userService/**
+        filters:
+        - StripPrefix=1
+      - id: api-web
+        uri: ${service.web-url}
+        predicates:
+        - Path=/webService/**
+        filters:
+        - StripPrefix=1

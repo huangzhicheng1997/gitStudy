@@ -11,6 +11,6 @@ import java.util.List;
 
 @Mapper
 public interface CommentMapper extends BaseMapper<GoodsComent> {
-    @Select("select b.username,a.content,a.ctime,a.good_id,a.user_id from goods_comment a,user b where a.user_id=b.userId limit #{start},#{end}")
-    List<UserCommentVo> getComments(@Param("good_id") String goodId,@Param("start") Integer start,@Param("end") Integer end);
+    @Select("select b.username,a.content,a.ctime,a.good_id,a.user_id from goods_comment a,user b where a.user_id=b.userId And good_id=#{goodId}")
+    List<UserCommentVo> getComments(@Param("goodId") String goodId);
 }

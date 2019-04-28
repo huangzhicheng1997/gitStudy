@@ -126,7 +126,7 @@ public class GoodsController {
      * @param id
      * @return
      */
-    @GetMapping("/getGood")
+    @RequestMapping("/getGood")
     public BaseRs<Goods> getGoodsById(String id,HttpServletRequest request){
         String token = request.getHeader("token");
         String json = redisUtil.get(token);

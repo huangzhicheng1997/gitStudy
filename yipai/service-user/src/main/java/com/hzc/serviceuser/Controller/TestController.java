@@ -19,10 +19,8 @@ import com.hzc.serviceuser.entity.TransactionDetail;
 import com.hzc.serviceuser.mapper.GoodsMapper;
 import com.hzc.serviceuser.mapper.TransactionDetailMapper;
 import com.hzc.serviceuser.service.FeignClient;
-import com.hzc.serviceuser.utils.JpaUtils;
-import com.sun.org.apache.xml.internal.security.keys.KeyUtils;
-import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +50,8 @@ public class TestController {
     private FeignClient feignClient;
    @Autowired
    private TransactionDetailMapper mapper;
+   @Autowired
+   private RedisTemplate redisTemplate;
 
 
     @RequestMapping("/test")
@@ -80,8 +80,13 @@ public class TestController {
     }
 
     @RequestMapping("/ts")
-    public  BaseRs<TransactionDetailVo> test(String id) throws IllegalAccessException {
-        return null;
+    public  Boolean test(String id) throws IllegalAccessException {
+        Goods goods=new Goods();
+        goods.setStatus("1");
+
+
+
+        return redisTemplate.opsForValue().get("token") instanceof Goods;
     }
 
     @RequestMapping("/deleteEs")

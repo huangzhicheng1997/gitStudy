@@ -14,6 +14,7 @@
         <option value="$PROJECT_DIR$/yipai-zuul/pom.xml" />
         <option value="$PROJECT_DIR$/service-user/pom.xml" />
         <option value="$PROJECT_DIR$/service-web/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
       </list>
     </option>
   </component>

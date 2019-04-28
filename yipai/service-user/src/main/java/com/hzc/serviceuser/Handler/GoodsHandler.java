@@ -11,14 +11,9 @@ import com.hzc.serviceuser.mapper.GoodsMapper;
 import com.hzc.serviceuser.mapper.TransactionDetailMapper;
 import com.hzc.serviceuser.service.FeignClient;
 import com.hzc.serviceuser.service.RabbitMqProducerService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import feign.Feign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.List;

@@ -12,10 +12,8 @@ import com.qiniu.util.Auth;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import sun.misc.BASE64Encoder;
 
 import java.io.*;
-import java.util.Base64;
 import java.util.UUID;
 
 @Component

@@ -10,6 +10,8 @@ import com.hzc.serviceuser.mapper.CommentMapper;
 import com.hzc.serviceuser.service.CommentService;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,9 +23,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper,GoodsComent> i
 
     @Override
     public List<UserCommentVo> getComments(String goodsId,Integer page,Integer rows) {
-        Integer start=(page-1)*rows;
-        Integer end=page*rows;
-        List<UserCommentVo> comments = baseMapper.getComments(goodsId,start,end);
+        List<UserCommentVo> comments = baseMapper.getComments(goodsId);
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        comments.forEach(userCommentVo -> {
+            userCommentVo.setCtime(dateFormat.format(new Date(Long.valueOf(userCommentVo.getCtime())*1000)));
+        });
         return comments;
     }
 }

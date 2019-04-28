@@ -24,7 +24,10 @@ public class MvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry interceptorRegistry){
         interceptorRegistry.addInterceptor(setIntercept())
-        .addPathPatterns("/**").excludePathPatterns("/user/login").excludePathPatterns("/user/regist").excludePathPatterns("/goods/getGoods")
+        .addPathPatterns("/**").excludePathPatterns("/user/login").excludePathPatterns("/goods/upload").excludePathPatterns("/user/regist").excludePathPatterns("/goods/getGoods").excludePathPatterns("/home/**")
+        .excludePathPatterns("/goods/**")
+
+
                ;
     }
     @Override

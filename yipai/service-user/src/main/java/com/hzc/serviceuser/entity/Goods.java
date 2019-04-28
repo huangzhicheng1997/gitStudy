@@ -171,4 +171,24 @@ public class Goods implements Serializable {
     public void setSearchStatus(String searchStatus) {
         this.searchStatus = searchStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "id='" + id + '\'' +
+                ", goodPrice='" + goodPrice + '\'' +
+                ", goodDescribe='" + goodDescribe + '\'' +
+                ", imgSrc='" + imgSrc + '\'' +
+                ", goodName='" + goodName + '\'' +
+                ", auctionPrice='" + auctionPrice + '\'' +
+                ", status='" + status + '\'' +
+                ", detailImg1='" + detailImg1 + '\'' +
+                ", detailImg2='" + detailImg2 + '\'' +
+                ", detailImg3='" + detailImg3 + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", limitedTime='" + limitedTime + '\'' +
+                ", userId='" + userId + '\'' +
+                ", searchStatus='" + searchStatus + '\'' +
+                '}';
+    }
 }

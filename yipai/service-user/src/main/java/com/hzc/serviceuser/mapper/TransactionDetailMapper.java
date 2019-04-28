@@ -33,9 +33,20 @@ public interface TransactionDetailMapper {
 
     int updateByPrimaryKey(TransactionDetail record);
 
-    @Select("SELECT a.id,a.price,a.goods_id as goodsId,b.good_name as goodsName,a.ctime,c.username as ownerName,b.`status`,d.username as myName,e.deal_user_id as myId " +
-            "FROM transaction_detail a,goods b,`user` c,`user` d ,deal_flow_detail e " +
-            "WHERE a.goods_id=b.id AND a.user_id=c.userId AND a.auction_user_id=d.userId And a.goods_id=e.goods_id AND d.userId=#{userid}")
+    @Select("SELECT\n" +
+            "\ta.id,\n" +
+            "\ta.price,\n" +
+            "\ta.goods_id AS goodsId,\n" +
+            "\tb.good_name AS goodsName,\n" +
+            "\ta.ctime,\n" +
+            "\tc.username AS ownerName,\n" +
+            "\tb.`status`,\n" +
+            "\td.username AS myName,\n" +
+            "\te.deal_user_id as myId\n" +
+            "FROM\n" +
+            "\ttransaction_detail a\n" +
+            "LEFT JOIN\n" +
+            "  goods b ON a.goods_id=b.id LEFT JOIN `user` c ON a.user_id=c.userId LEFT JOIN `user` d ON a.auction_user_id=d.userId LEFT JOIN deal_flow_detail e ON a.goods_id=e.goods_id WHERE d.userId=#{userid}")
     List<TransactionDetailVo> getTransactions(@Param(value = "userid") String userid);
 
     @Select("SELECT b.id,b.goods_id as goodsId,b.auction_user_id as auctionUserId ,b.user_id as userId,b.ctime,b.utime,b.price FROM goods a,transaction_detail b WHERE a.auction_price=b.price AND b.goods_id=#{goodId}")
